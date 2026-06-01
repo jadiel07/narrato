@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  password  String
+  plan      Plan     @default(FREE)
+  credits   Int      @default(3)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  reports   Report[]
+}
+
+model Report {
+  id        String       @id @default(cuid())
+  title     String
+  content   String       @db.Text
+  template  String       @default("general")
+  status    ReportStatus @default(PENDING)
+  userId    String
+  user      User         @relation(fields: [userId], references: [id])
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+enum Plan {
+  FREE
+  PRO
+}
+
+enum ReportStatus {
+  PENDING
+  PROCESSING
+  DONE
+  ERROR
+}
