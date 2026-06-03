@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Narrato — Seus dados contam uma história",
-  description: "Transforme dados brutos em relatórios profissionais com IA",
+  description: "Transforme dados brutos em relatórios profissionais com IA em segundos",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
